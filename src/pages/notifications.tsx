@@ -2,8 +2,9 @@ import Layout from "../components/template/Layout";
 
 export default function Home() {
   return (
-    <Layout title="Pagina inicial" subtitle="Building process🚀"> 
-      <h2>conteudo</h2>
+    <Layout title="Notifications" 
+        subtitle="your notification maneger"> 
+      <h2>Content</h2>
     </Layout>
   )
 }
