@@ -11,8 +11,8 @@ interface LayoutProps{
 export default function Layout(props: LayoutProps) {
     return (
       <div className={` flex  h-screen w-screen`}>
-          <SideMenu />
-          <div className={`flex`}>
+        <SideMenu />
+        <div className={`flex`}>
          <Header title={props.title} subtitle={props.subtitle}/>
          <Content>
            {props.children}
