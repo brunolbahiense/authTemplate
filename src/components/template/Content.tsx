@@ -1,13 +1,17 @@
-interface ContentProps{
-    children?: any
+/* eslint-disable @typescript-eslint/no-explicit-any */
+interface ContentProps {
+  children?: any
 }
 
 export default function Content(props: ContentProps) {
-    return (
-      <div className={`
+  return (
+    <div
+      className={`
           flex flex-col mt-7
-      `}>
-          {props.children}
-      </div>
-    )
+          dark:text-gray-200
+      `}
+    >
+      {props.children}
+    </div>
+  )
 }
