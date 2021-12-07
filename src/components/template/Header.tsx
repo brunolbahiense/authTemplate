@@ -1,4 +1,5 @@
 import useAppData from '../../data/hook/useAppData'
+import Avatar from './Avatar'
 import ThemeButton from './ThemeButton'
 import Title from './Title'
 
@@ -12,8 +13,9 @@ export default function Header(props: HeaderProps) {
   return (
     <header className={`flex`}>
       <Title title={props.title} subtitle={props.subtitle} />
-      <div className={`flex flex-grow justify-end`}>
+      <div className={`flex flex-grow justify-end items-center`}>
         <ThemeButton theme={theme} switchTheme={switchTheme} />
+        <Avatar className="ml-3" />
       </div>
     </header>
   )
