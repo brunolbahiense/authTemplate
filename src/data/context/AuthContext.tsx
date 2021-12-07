@@ -6,7 +6,10 @@ import User from '../../model/User'
 
 interface AuthContextProps {
   user?: User
+  loading?: boolean
   loginGoogle?: () => Promise<void>
+  login?: (email: string, password: string) => Promise<void>
+  signin?: (email: string, password: string) => Promise<void>
   logout?: () => Promise<void>
 }
 
@@ -59,7 +62,31 @@ export function AuthProvider(props) {
       const resp = await firebase
         .auth()
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      seccionConfig(resp.user)
+      await seccionConfig(resp.user)
+      route.push('/')
+    } finally {
+      setLoading(false)
+    }
+  }
+  async function login(email, password) {
+    try {
+      setLoading(true)
+      const resp = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+      await seccionConfig(resp.user)
+      route.push('/')
+    } finally {
+      setLoading(false)
+    }
+  }
+  async function signin(email, password) {
+    try {
+      setLoading(true)
+      const resp = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+      await seccionConfig(resp.user)
       route.push('/')
     } finally {
       setLoading(false)
@@ -80,6 +107,8 @@ export function AuthProvider(props) {
     if (Cookies.get('admin-template-auth')) {
       const cancel = firebase.auth().onIdTokenChanged(seccionConfig)
       return () => cancel()
+    } else {
+      setLoading(false)
     }
   }, [])
 
@@ -87,7 +116,10 @@ export function AuthProvider(props) {
     <AuthContext.Provider
       value={{
         user,
+        loading,
         loginGoogle,
+        login,
+        signin,
         logout
       }}
     >

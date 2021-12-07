@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useAppData from '../../data/hook/useAppData'
+import ForceAuth from '../../functions/forceAuth'
+/* import ForceAuth from '../../functions/forceAuth' */
 import Content from './Content'
 import Header from './Header'
 import SideMenu from './SideMenu'
@@ -12,7 +14,7 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps) {
   const { theme } = useAppData()
-  return (
+  return ForceAuth(
     <div className={` ${theme} flex  h-screen w-screen`}>
       <SideMenu />
       <div

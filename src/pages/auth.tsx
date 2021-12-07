@@ -4,7 +4,7 @@ import { WarningIcon } from '../components/Icons'
 import useAuth from '../data/hook/useAuth'
 
 export default function Auth() {
-  const { loginGoogle } = useAuth()
+  const { login, signin, loginGoogle } = useAuth()
   const [mode, setMode] = useState<'login' | 'signin'>('login')
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
@@ -14,11 +14,15 @@ export default function Auth() {
     setError(msg)
     setTimeout(() => setError(null), time * 1000)
   }
-  function submit() {
-    if (mode === 'login') {
-      console.log('login')
-    } else {
-      console.log('cadastrar')
+  async function submit() {
+    try {
+      if (mode === 'login') {
+        await login(email, password)
+      } else {
+        await signin(email, password)
+      }
+    } catch (e) {
+      showError(e?.message ?? 'unknonw error')
     }
   }
   return (
